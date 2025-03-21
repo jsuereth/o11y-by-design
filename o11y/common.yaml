@@ -1,0 +1,5 @@
+groups:
+  - id: shared.attributes
+    type: attribute_group
+    brief: Attributes shared between our signals.
+    attributes:
