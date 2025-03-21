@@ -1,0 +1,67 @@
+text_maps:
+  rust_types:
+    int: i64
+    double: f64
+    boolean: bool
+    string: String
+    string[]: Vec<String>
+    template[string]: String          # Not yet properly handled in codegen
+    template[string[]]: Vec<String>   # Not yet properly handled in codegen
+
+# Whitespace control settings to simplify the definition of templates
+whitespace_control:
+  trim_blocks: true
+  lstrip_blocks: true
+
+comment_formats:
+  rust:
+    format: markdown
+    prefix: "/// "
+    trim: true
+    remove_trailing_dots: true
+default_comment_format: rust
+
+params:
+  attributes: true
+  metrics: true
+  exclude_deprecated: true
+
+templates:
+  - template: README.md
+    filter: .
+    application_mode: single
+  - template: lib.rs
+    filter: .
+    application_mode: single
+  - template: attributes/mod.rs.j2
+    filter: >
+      if $attributes then
+        semconv_grouped_attributes($params)
+      else
+        empty
+      end
+    application_mode: single
+  - template: attributes/attributes.rs.j2
+    filter: >
+      if $attributes then
+        semconv_grouped_attributes($params)
+      else
+        empty
+      end
+    application_mode: each
+  - template: metrics/mod.rs.j2
+    filter: >
+      if $metrics then
+        semconv_grouped_metrics
+      else
+        empty
+      end
+    application_mode: single
+  - template: metrics/metrics.rs.j2
+    filter: >
+      if $metrics then
+        semconv_grouped_metrics 
+      else
+        empty
+      end
+    application_mode: each

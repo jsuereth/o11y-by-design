@@ -65,3 +65,14 @@ generate:
 		go \
 		--future \
 		/home/weaver/target
+generate-rust:
+	$(DOCKER_RUN) --rm \
+		$(DOCKER_USER_IS_HOST_USER_ARG) \
+		--mount 'type=bind,source=$(PWD)/o11y,target=/home/weaver/source,readonly' \
+		--mount 'type=bind,source=$(PWD)/templates,target=/home/weaver/templates,readonly' \
+		--mount 'type=bind,source=$(PWD)/generated/rust,target=/home/weaver/target' \
+		${WEAVER_CONTAINER} registry generate \
+		--registry=/home/weaver/source \
+		rust \
+		--future \
+		/home/weaver/target
