@@ -53,19 +53,22 @@ endif
 # 		--baseline-registry=https://github.com/open-telemetry/semantic-conventions/archive/refs/tags/v$(LATEST_RELEASED_SEMCONV_VERSION).zip[model] \
 # 		--policy=/home/weaver/policies
 
-.PHONY: generate
-generate:
+.PHONY: generate-go
+generate-go:
+	mkdir -p generated/go
 	$(DOCKER_RUN) --rm \
 		$(DOCKER_USER_IS_HOST_USER_ARG) \
 		--mount 'type=bind,source=$(PWD)/o11y,target=/home/weaver/source,readonly' \
 		--mount 'type=bind,source=$(PWD)/templates,target=/home/weaver/templates,readonly' \
-		--mount 'type=bind,source=$(PWD)/go,target=/home/weaver/target' \
+		--mount 'type=bind,source=$(PWD)/generated/go,target=/home/weaver/target' \
 		${WEAVER_CONTAINER} registry generate \
 		--registry=/home/weaver/source \
 		go \
 		--future \
 		/home/weaver/target
+
 generate-rust:
+	mkdir -p generated/rust
 	$(DOCKER_RUN) --rm \
 		$(DOCKER_USER_IS_HOST_USER_ARG) \
 		--mount 'type=bind,source=$(PWD)/o11y,target=/home/weaver/source,readonly' \

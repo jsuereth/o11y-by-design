@@ -13,8 +13,8 @@ TODO - Describe application.
 
 ## Building
 
-1. Generate code for your language: `make generate`
-
+1. Generate code for Go: `make generate-go`
+2. Generate code for Rust: `make generate-rust`
 
 TODO - more examples.
 
