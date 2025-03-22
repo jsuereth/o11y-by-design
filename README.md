@@ -16,6 +16,16 @@ TODO - Describe application.
 1. Generate code for Go: `make generate-go`
 2. Generate code for Rust: `make generate-rust`
 
-TODO - more examples.
+TODO - build docker images.
 
 ## Running
+
+1. Running the Go Example
+   - Move to the go directory: `cd go`
+   - Run the go server `go run .`
+   - In a separate terminal, issue some requests
+     `curl localhost:8080/auction/1/bid` e.g.
+   - Check the prometheus metrics:
+     `curl localhost:2223/metrics`
+2. Running the Rust Example
+   TODO
