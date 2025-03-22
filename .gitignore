@@ -6,4 +6,3 @@ Cargo.lock
 *.iml
 
 /generated
-/go

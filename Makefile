@@ -55,17 +55,18 @@ endif
 
 .PHONY: generate-go
 generate-go:
-	mkdir -p generated/go
+	mkdir -p go/o11y
 	$(DOCKER_RUN) --rm \
 		$(DOCKER_USER_IS_HOST_USER_ARG) \
 		--mount 'type=bind,source=$(PWD)/o11y,target=/home/weaver/source,readonly' \
 		--mount 'type=bind,source=$(PWD)/templates,target=/home/weaver/templates,readonly' \
-		--mount 'type=bind,source=$(PWD)/generated/go,target=/home/weaver/target' \
+		--mount 'type=bind,source=$(PWD)/go/o11y,target=/home/weaver/target' \
 		${WEAVER_CONTAINER} registry generate \
 		--registry=/home/weaver/source \
 		go \
 		--future \
 		/home/weaver/target
+	cd go; go fmt ./o11y
 
 generate-rust:
 	mkdir -p generated/rust
