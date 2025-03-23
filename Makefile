@@ -80,3 +80,14 @@ generate-rust:
 		rust \
 		--future \
 		/home/weaver/target
+
+check:
+	$(DOCKER_RUN) --rm \
+		$(DOCKER_USER_IS_HOST_USER_ARG) \
+		--mount 'type=bind,source=$(PWD)/o11y,target=/home/weaver/source,readonly' \
+		--mount 'type=bind,source=$(PWD)/templates,target=/home/weaver/templates,readonly' \
+		--mount 'type=bind,source=$(PWD)/policies,target=/home/weaver/policies' \
+		${WEAVER_CONTAINER} registry check \
+		--registry=/home/weaver/source \
+		-p policies/ \
+		--future \
