@@ -9,3 +9,6 @@ groups:
     attributes:
       - ref: auction.id
         requirement_level: required
+      - ref: auction.name
+        requirement_level: recommended
+

@@ -8,3 +8,10 @@ groups:
         brief: >
           The id of the auction.
         stability: stable
+      - id: auction.name
+        type: string
+        brief: >
+          The name of the auction
+        stability: stable
+        examples: ["Fish for sale"]
+

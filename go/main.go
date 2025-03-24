@@ -25,6 +25,14 @@ var (
 	bidCount o11y.AuctionBidCount
 )
 
+func init() {
+	var err error
+	bidCount, err = o11y.NewAuctionBidCount(meter)
+	if err != nil {
+		panic(err)
+	}
+}
+
 func bid(w http.ResponseWriter, req *http.Request) {
 	ctx, span := tracer.Start(req.Context(), "bid")
 	defer span.End()
@@ -36,23 +44,13 @@ func bid(w http.ResponseWriter, req *http.Request) {
 			return
 		}
 		fmt.Fprintf(w, "recording your bid\n")
-		bidCount.Add(ctx, o11y.AuctionBidCountAttributes{
-			AuctionId: id,
-		}, 1)
+		bidCount.Add(ctx, 1, id)
 		// TODO - this would actually update our bid database.
 		w.WriteHeader(200)
 	} else {
 		// Invalid request.
 		w.WriteHeader(404)
 		return
-	}
-}
-
-func init() {
-	var err error
-	bidCount, err = o11y.NewAuctionBidCount(meter)
-	if err != nil {
-		panic(err)
 	}
 }
 
