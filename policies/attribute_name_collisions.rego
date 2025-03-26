@@ -89,4 +89,4 @@ is_property_set(obj, property) = true if {
 # ADDING NEW EXCEPTIONS IS NOT ALLOWED.
 
 # DO NOT ADD ATTRIBUTES TO THIS LIST
-excluded_const_collisions := {"messaging.client_id"}
+excluded_const_collisions := {}
