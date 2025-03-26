@@ -84,6 +84,20 @@ generate-rust:
 		--future \
 		/home/weaver/target
 
+.PHONY: generate-docs
+generate-docs:
+	mkdir -p docs/o11y
+	$(DOCKER_RUN) --rm \
+		$(DOCKER_USER_IS_HOST_USER_ARG) \
+		--mount 'type=bind,source=$(PWD)/o11y,target=/home/weaver/source,readonly' \
+		--mount 'type=bind,source=$(PWD)/templates,target=/home/weaver/templates,readonly' \
+		--mount 'type=bind,source=$(PWD)/docs/o11y,target=/home/weaver/target' \
+		${WEAVER_CONTAINER} registry generate \
+		--registry=/home/weaver/source \
+		markdown \
+		--future \
+		/home/weaver/target
+
 .PHONY: check
 check:
 	$(DOCKER_RUN) --rm \
