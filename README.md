@@ -8,7 +8,9 @@ an API.
 This project demonstrates the following key capabilities of weaver:
 
 - `weaver registry check`: Ensures defined observability signals match policies (e.g. backwards compatibility)
-- `weaver 
+- `weaver registry generate`: Creates example applications.
+
+[sides from Observability Day EU 2025 talk](https://docs.google.com/presentation/d/1U36ageT5_oIiPTKGFcR7L0yqJP805zwU/edit?usp=sharing&ouid=116090704407622565882&rtpof=true&sd=true)
 
 ## Example Application
 
