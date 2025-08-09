@@ -73,3 +73,25 @@ func (m AuctionBidCount) Add(
 func AuctionName(auctionName string) AuctionBidCountAttr {
 	return attr{attribute.String("auction.name", auctionName)}
 }
+
+// An instrument for recording `auction.bid.sum`
+type AuctionBidSum struct {
+	inst metric.Float64Counter
+}
+
+// Construct a new instrument for measuring `auction.bid.sum`
+func NewAuctionBidSum(m metric.Meter) (AuctionBidSum, error) {
+	i, err := m.Float64Counter(
+		"auction.bid.sum",
+		metric.WithDescription("Sum of all bids we've seen"),
+		metric.WithUnit("{bid}"),
+	)
+	if err != nil {
+		return AuctionBidSum{}, err
+	}
+	return AuctionBidSum{i}, nil
+}
+
+func (m AuctionBidSum) Add(ctx context.Context, inc float64) {
+	(m.inst).Add(ctx, inc)
+}

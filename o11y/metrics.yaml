@@ -11,4 +11,11 @@ groups:
         requirement_level: required
       - ref: auction.name
         requirement_level: recommended
+  - id: metric.auction.bid.sum
+    type: metric
+    metric_name: auction.bid.sum
+    stability: stable
+    brief: "Sum of all bids we've seen"
+    instrument: counter
+    unit: "{bid}"
 
