@@ -97,7 +97,7 @@ func (m {{ smart_title_case(metric.metric_name) }}) Add(
 }
 {% else %}
 func (m {{ smart_title_case(metric.metric_name) }}) Add(ctx context.Context, inc float64) {
-    (*m.instrument).Add(ctx, inc)
+    (m.inst).Add(ctx, inc)
 }
 {% endif %}
 

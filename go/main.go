@@ -23,12 +23,17 @@ var (
 	tracer   = otel.Tracer(otelName)
 	meter    = otel.Meter(otelName)
 	bidCount o11y.AuctionBidCount
+	bidSum   o11y.AuctionBidSum
 )
 
 func init() {
 	var err error
 	bidCount, err = o11y.NewAuctionBidCount(meter)
 	if err != nil {
+		panic(err)
+	}
+	bidSum, err = o11y.NewAuctionBidSum(meter)
+	if err != err {
 		panic(err)
 	}
 }
@@ -45,6 +50,7 @@ func bid(w http.ResponseWriter, req *http.Request) {
 		}
 		fmt.Fprintf(w, "recording your bid\n")
 		bidCount.Add(ctx, 1, id)
+		bidSum.Add(ctx, 10)
 		// TODO - this would actually update our bid database.
 		w.WriteHeader(200)
 	} else {
